@@ -34,193 +34,314 @@ Figma
 
 ## CODE:
 ```
+import { useState } from "react";
+import { Calendar, MapPin, User } from "lucide-react";
+import { Button } from "./components/ui/button";
+import { Input } from "./components/ui/input";
+import { Label } from "./components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
 
-
-@custom-variant dark (&:is(.dark *));
-
-:root {
-  --font-size: 16px;
-  --background: #ffffff;
-  --foreground: oklch(0.145 0 0);
-  --card: #ffffff;
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #030213;
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0.0058 264.53);
-  --secondary-foreground: #030213;
-  --muted: #ececf0;
-  --muted-foreground: #717182;
-  --accent: #e9ebef;
-  --accent-foreground: #030213;
-  --destructive: #d4183d;
-  --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
-  --input: transparent;
-  --input-background: #f3f3f5;
-  --switch-background: #cbced4;
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #030213;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+interface FormData {
+  fullName: string;
+  email: string;
+  phone: string;
+  dateOfBirth: string;
+  gender: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  emergencyContact: string;
+  emergencyPhone: string;
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
-}
+export default function App() {
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState<FormData>({
+    fullName: "",
+    email: "",
+    phone: "",
+    dateOfBirth: "",
+    gender: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    emergencyContact: "",
+    emergencyPhone: "",
+  });
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-input-background: var(--input-background);
-  --color-switch-background: var(--switch-background);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
+  const handleChange = (field: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    setSubmitted(true);
+  };
+
+  const handleNewRegistration = () => {
+    setSubmitted(false);
+    setFormData({
+      fullName: "",
+      email: "",
+      phone: "",
+      dateOfBirth: "",
+      gender: "",
+      address: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      emergencyContact: "",
+      emergencyPhone: "",
+    });
+  };
+
+  if (submitted) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <Card className="max-w-md w-full">
+          <CardContent className="pt-6 text-center">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 className="mb-2">Registration Successful!</h2>
+            <p className="text-gray-600 mb-6">
+              Thank you for registering. We have received your details and will contact you soon.
+            </p>
+            <Button onClick={handleNewRegistration} className="w-full">
+              Register Another Person
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
-  body {
-    @apply bg-background text-foreground;
-  }
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white border-b shadow-sm">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex items-center gap-3">
+            <Calendar className="w-8 h-8 text-blue-600" />
+            <div>
+              <h1>Event Registration Form</h1>
+              <p className="text-sm text-gray-600">Please fill in your details below</p>
+            </div>
+          </div>
+        </div>
+      </header>
 
-  /**
-  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
-  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
-  */
+      {/* Event Info */}
+      <div className="bg-blue-50 border-b border-blue-100">
+        <div className="container mx-auto px-4 py-6">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="mb-3">Annual Tech Conference 2026</h2>
+            <div className="flex flex-wrap gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-blue-600" />
+                <span>March 15-17, 2026</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-blue-600" />
+                <span>Convention Center, Downtown</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <User className="w-4 h-4 text-blue-600" />
+                <span>Free Registration</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  html {
-    font-size: var(--font-size);
-  }
+      {/* Registration Form */}
+      <main className="container mx-auto px-4 py-8">
+        <Card className="max-w-3xl mx-auto">
+          <CardHeader>
+            <CardTitle>Registration Details</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Personal Information */}
+              <div>
+                <h3 className="mb-4">Personal Information</h3>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="fullName">Full Name *</Label>
+                    <Input
+                      id="fullName"
+                      required
+                      value={formData.fullName}
+                      onChange={(e) => handleChange("fullName", e.target.value)}
+                      placeholder="Enter your full name"
+                    />
+                  </div>
 
-  h1 {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="email">Email Address *</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => handleChange("email", e.target.value)}
+                        placeholder="your.email@example.com"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="phone">Mobile Number *</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={(e) => handleChange("phone", e.target.value)}
+                        placeholder="(123) 456-7890"
+                      />
+                    </div>
+                  </div>
 
-  h2 {
-    font-size: var(--text-xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="dateOfBirth">Date of Birth *</Label>
+                      <Input
+                        id="dateOfBirth"
+                        type="date"
+                        required
+                        value={formData.dateOfBirth}
+                        onChange={(e) => handleChange("dateOfBirth", e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="gender">Gender *</Label>
+                      <Select
+                        value={formData.gender}
+                        onValueChange={(value) => handleChange("gender", value)}
+                        required
+                      >
+                        <SelectTrigger id="gender">
+                          <SelectValue placeholder="Select gender" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="male">Male</SelectItem>
+                          <SelectItem value="female">Female</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
+                          <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-  h3 {
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+              {/* Address Information */}
+              <div>
+                <h3 className="mb-4">Address Information</h3>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="address">Street Address *</Label>
+                    <Input
+                      id="address"
+                      required
+                      value={formData.address}
+                      onChange={(e) => handleChange("address", e.target.value)}
+                      placeholder="Enter your street address"
+                    />
+                  </div>
 
-  h4 {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div>
+                      <Label htmlFor="city">City *</Label>
+                      <Input
+                        id="city"
+                        required
+                        value={formData.city}
+                        onChange={(e) => handleChange("city", e.target.value)}
+                        placeholder="City"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="state">State *</Label>
+                      <Input
+                        id="state"
+                        required
+                        value={formData.state}
+                        onChange={(e) => handleChange("state", e.target.value)}
+                        placeholder="State"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="zipCode">ZIP Code *</Label>
+                      <Input
+                        id="zipCode"
+                        required
+                        value={formData.zipCode}
+                        onChange={(e) => handleChange("zipCode", e.target.value)}
+                        placeholder="12345"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-  label {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
+              {/* Emergency Contact */}
+              <div>
+                <h3 className="mb-4">Emergency Contact</h3>
+                <div className="space-y-4">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="emergencyContact">Contact Name *</Label>
+                      <Input
+                        id="emergencyContact"
+                        required
+                        value={formData.emergencyContact}
+                        onChange={(e) => handleChange("emergencyContact", e.target.value)}
+                        placeholder="Emergency contact name"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="emergencyPhone">Contact Phone *</Label>
+                      <Input
+                        id="emergencyPhone"
+                        type="tel"
+                        required
+                        value={formData.emergencyPhone}
+                        onChange={(e) => handleChange("emergencyPhone", e.target.value)}
+                        placeholder="(123) 456-7890"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-  button {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
-  }
-
-  input {
-    font-size: var(--text-base);
-    font-weight: var(--font-weight-normal);
-    line-height: 1.5;
-  }
+              {/* Submit Button */}
+              <div className="pt-4 border-t">
+                <Button type="submit" className="w-full" size="lg">
+                  Submit Registration
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </main>
+    </div>
+  );
 }
 ```
 
 
 ## OUTPUT:
+<img width="1373" height="795" alt="Screenshot (61)" src="https://github.com/user-attachments/assets/0c4001d3-66ff-4526-a5cc-a9843911eb3c" />
+<img width="1372" height="801" alt="Screenshot (62)" src="https://github.com/user-attachments/assets/2fa8f321-6bbd-4bb1-80a0-3b9c5c1ba6f1" />
+<img width="1378" height="797" alt="Screenshot (60)" src="https://github.com/user-attachments/assets/dfc4ea99-6c3d-4508-9374-4e1b58ce0be3" />
+
 
 
 ## RESULT:
